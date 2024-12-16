@@ -1,4 +1,5 @@
-# BigQuery-based Data Pipeline Project
+# Real Time Movie Data Pipeline with Cloud Functions and BigQuery
+
 
 ## Overview
 This project demonstrates a real-time data pipeline using:
