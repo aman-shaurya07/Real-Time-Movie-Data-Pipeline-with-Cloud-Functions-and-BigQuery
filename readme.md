@@ -6,28 +6,43 @@ This project demonstrates a real-time data pipeline using:
 - **Cloud Functions**: For event-driven processing.
 - **Google BigQuery**: For data storage and analytics.
 
-## Architecture
-![Architecture](diagrams/architecture.png)
+## **Architecture**
+The architecture consists of:
+1. **Google Cloud Storage (GCS):** Stores raw input data files.
+2. **Pub/Sub:** Sends notifications for new file uploads in GCS.
+3. **Cloud Functions:** Executes a transformation query in BigQuery based on Pub/Sub notifications.
+4. **BigQuery:** Processes and stores the transformed data.
 
-1. **Data Flow**:
+**Data Flow**:
     - Files uploaded to **Google Cloud Storage (GCS)** trigger Pub/Sub notifications.
     - Pub/Sub messages trigger a **Cloud Function** to process the data.
     - Processed data is loaded into a **BigQuery** table for analytics.
 
-## Prerequisites
-- Google Cloud account.
-- gcloud CLI installed.
+### **Prerequisites**
+Ensure you have:
+1. A **Google Cloud Platform (GCP)** project with billing enabled.
+2. **Google Cloud SDK** installed locally and project must me authorized(if not, use following to authorize):
+    ```bash
+    gcloud auth login
+    ```
+3. **Python 3.11** installed.
+4. Required GCP APIs enabled:
+   - **Cloud Functions API**
+   - **Pub/Sub API**
+   - **BigQuery API**
+   - **Cloud Storage API**
+5. Your GCP account's default service account must have following permissions:
+   - **BigQuery Data Editor**
+   - **Pub/Sub Data Editor**
+   - **Storage Admin**
 
 ## Setup Instructions
 
 ### Step 1: Clone the Repository
+1. **Create Topic**:
     ```bash
     git clone https://github.com/aman-shaurya07/Real-Time-Movie-Data-Pipeline-with-Cloud-Functions-and-BigQuery.git
     ```
-    ```bash
-    cd Real-Time-Movie-Data-Pipeline-with-Cloud-Functions-and-BigQuery
-    ```
-
 
 ### Step 2: Create Pub/Sub Topic and Subscription
 1. **Create Topic**:
