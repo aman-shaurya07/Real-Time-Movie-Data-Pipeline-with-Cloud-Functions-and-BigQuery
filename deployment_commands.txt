@@ -1,13 +1,18 @@
-# 1. Upload dataset to GCS
+# 1. Create GCS bucket, topic, subscription
+
+# 2. Upload dataset to GCS
 gsutil cp dataset/movie_dataset.csv gs://your-bucket-name/raw/
 
-# 2. Create a BigQuery dataset
+# 3. Execute the notification setup script for setting up notification
+bash notification_setup.sh
+
+# 4. Create a BigQuery dataset
 bq --location=US mk --dataset YOUR_PROJECT_ID:movie_data
 
-# 3. Create a BigQuery table with schema
+# 5. Create a BigQuery table with schema
 bq mk --table YOUR_PROJECT_ID:movie_data.raw_movie_data schema.json
 
-# 4. Deploy the Cloud Function
+# 6. Deploy the Cloud Function for executing trasformation on data uploaded in bucket and  store as table in BigQuery for further use.
 gcloud functions deploy gcs_to_bigquery \
     --runtime python311 \
     --trigger-topic your-topic \
@@ -16,5 +21,4 @@ gcloud functions deploy gcs_to_bigquery \
     --region=us-central1 \
     --source=.
 
-# 5. Execute the notification setup script
-bash notification_setup.sh
+
